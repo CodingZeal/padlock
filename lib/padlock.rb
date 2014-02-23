@@ -1,21 +1,34 @@
 require "ostruct"
 require "active_record"
-require "padlock/version"
-require "padlock/lock"
-require "padlock/instance"
 
 module Padlock
   class << self
-    def current_user=(method)
-      if method.is_a? Symbol
-        Padlock.config.current_user = method
-      else
-        raise "Padlock#current_user= is expecting a symbol"
-      end
+    def config
+      @@config ||= OpenStruct.new( table_name: "padlocks" )
     end
 
-    def config
-      @@config ||= OpenStruct.new
+    def lock(object, user)
+      unlock!(object)
+      user.padlocks.create(lockable: object)
+      object.reload
+    end
+
+    def locked? object
+      object.locked?
+    end
+
+    def unlock! *objects
+      objects.each { |object| object.unlock! }
+    end
+
+    def unlocked? object
+      object.unlocked?
     end
   end
 end
+
+require "padlock/version"
+require "padlock/instance"
+require "padlock/lockable"
+require "padlock/user"
+# require "padlock/integrations/active_record"
