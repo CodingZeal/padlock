@@ -4,7 +4,7 @@ class LockableObject < ActiveRecord::Base
   include Padlock::Lockable
 end
 
-describe Padlock::Lockable do
+describe LockableObject do
   subject { LockableObject.create }
 
   let(:user) { User.create!(name: "Jim Bob") }
