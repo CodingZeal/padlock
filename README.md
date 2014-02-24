@@ -1,6 +1,6 @@
 # Padlock
 
-TODO: Write a gem description
+Coming soon...
 
 ## Installation
 
@@ -18,7 +18,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Coming soon...
 
 ## Contributing
 
