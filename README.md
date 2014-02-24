@@ -1,5 +1,7 @@
 # Padlock
 
+[![Build Status](https://travis-ci.org/acuppy/padlock.png?branch=master)](https://travis-ci.org/acuppy/padlock) [![Code Climate](https://codeclimate.com/github/acuppy/padlock.png)](https://codeclimate.com/github/acuppy/padlock)
+
 Coming soon...
 
 ## Installation
