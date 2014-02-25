@@ -3,7 +3,7 @@ module Padlock
     extend ActiveSupport::Concern
 
     included do
-      has_many :padlocks, class_name: "Padlock::Instance", foreign_key: "user_id"
+      has_many :padlocks, class_name: "Padlock::Instance", foreign_key: Padlock.config.user_foreign_key
     end
 
     def padlock *objects

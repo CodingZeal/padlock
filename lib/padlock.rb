@@ -4,7 +4,11 @@ require "active_record"
 module Padlock
   class << self
     def config
-      @@config ||= OpenStruct.new( table_name: "padlocks" )
+      @@config ||= OpenStruct.new(
+        table_name: "padlocks",
+        user_foreign_key: "user_id",
+        user_class_name: "User"
+      )
     end
 
     def lock(object, user)
@@ -31,4 +35,4 @@ require "padlock/version"
 require "padlock/instance"
 require "padlock/lockable"
 require "padlock/user"
-# require "padlock/integrations/active_record"
+require "padlock/integrations"

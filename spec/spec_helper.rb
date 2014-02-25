@@ -44,5 +44,5 @@ def teardown_db
 end
 
 class User < ActiveRecord::Base
-  include Padlock::User
+  acts_as_padlock_user
 end
