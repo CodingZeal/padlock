@@ -9,7 +9,7 @@ describe Padlock::Generators::PadlockGenerator, type: :generator do
   end
 
   it "has generated the migration file" do
-    destination_root.should have_structure {
+    destination_root.should have_structure do
       directory "db" do
         directory "migrate" do
           file "create_padlocks.rb" do
@@ -17,6 +17,6 @@ describe Padlock::Generators::PadlockGenerator, type: :generator do
           end
         end
       end
-    }
+    end
   end
 end
