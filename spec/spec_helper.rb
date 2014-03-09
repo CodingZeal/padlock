@@ -47,3 +47,7 @@ end
 class User < ActiveRecord::Base
   acts_as_padlock_user
 end
+
+class LockableObject < ActiveRecord::Base
+  include Padlock::Lockable
+end

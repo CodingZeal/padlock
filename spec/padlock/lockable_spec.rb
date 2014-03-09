@@ -1,9 +1,5 @@
 require "spec_helper"
 
-class LockableObject < ActiveRecord::Base
-  include Padlock::Lockable
-end
-
 describe LockableObject do
   subject { LockableObject.create }
 
