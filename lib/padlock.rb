@@ -31,13 +31,17 @@ module Padlock
     end
 
     def unlock_stale
-      Padlock::Instance.where("updated_at >= ?", timeout).destroy_all
+      stale_locks.destroy_all
     end
 
     private
 
     def timeout
       Time.now - config.timeout
+    end
+
+    def stale_locks
+      Padlock::Instance.where("updated_at >= ?", timeout)
     end
   end
 end
