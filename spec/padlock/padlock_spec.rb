@@ -83,4 +83,21 @@ describe Padlock do
       expect(Padlock.unlocked?(object)).to be_true
     end
   end
+
+  describe ".unlock_stale" do
+    let(:object) { LockableObject.create!(created_at: Time.now - 1.week, updated_at: updated_at) }
+    let(:locked?) { true }
+    let(:updated_at) { Time.now - 2.hours }
+    let(:fake_relation) { double(:fake_relation) }
+
+    before do
+      Padlock::Instance.should_receive(:where).and_return(fake_relation)
+      fake_relation.should_receive(:destroy_all)
+      Padlock.unlock_stale
+    end
+
+    it "unlocks all lockables that have been locked more than 1 hour" do
+      expect(object).to be_unlocked
+    end
+  end
 end

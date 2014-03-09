@@ -7,7 +7,8 @@ module Padlock
       @@config ||= OpenStruct.new(
         table_name: "padlocks",
         user_foreign_key: "user_id",
-        user_class_name: "User"
+        user_class_name: "User",
+        timeout: 1.day
       )
     end
 
@@ -27,6 +28,16 @@ module Padlock
 
     def unlocked? object
       object.unlocked?
+    end
+
+    def unlock_stale
+      Padlock::Instance.where("updated_at >= ?", timeout).destroy_all
+    end
+
+    private
+
+    def timeout
+      Time.now - config.timeout
     end
   end
 end
