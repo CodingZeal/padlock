@@ -75,7 +75,7 @@ For integration with the Timeout gem, you can touch a lockable object and extend
 
 Padlocks can also be administered through the global Padlock object
 
-    Padlock.lock(lockable, current_user) # => locks it to the user
+    Padlock.lock(current_user, lockable [, lockable, ...]) # => locks it to the user
 
     Padlock.locked? lockable # => true/false
 

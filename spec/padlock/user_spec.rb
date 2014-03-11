@@ -25,14 +25,14 @@ describe User do
 
       context "with a single object" do
         it "delegates to Padlock.lock" do
-          Padlock.should_receive(:lock).with(object, subject).exactly(1).times
+          Padlock.should_receive(:lock).with(subject, object).exactly(1).times
           subject.padlock!(object)
         end
       end
 
       context "with multiple objects" do
         it "delegates to Padlock.lock for each object" do
-          Padlock.should_receive(:lock).with(object, subject).exactly(2).times
+          Padlock.should_receive(:lock).with(subject, object).exactly(2).times
           subject.padlock!(object, object)
         end
       end
@@ -79,3 +79,4 @@ describe User do
     end
   end
 end
+

@@ -12,10 +12,12 @@ module Padlock
       )
     end
 
-    def lock(object, user)
-      unlock!(object)
-      user.padlocks.create(lockable: object)
-      object.reload
+    def lock(user, *objects)
+      objects.each do |object|
+        unlock!(object)
+        user.padlocks.create(lockable: object)
+        object.reload
+      end
     end
 
     def locked? object

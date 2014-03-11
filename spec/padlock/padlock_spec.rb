@@ -30,21 +30,28 @@ describe Padlock do
       object.should_receive(:unlock!)
       padlocks.stub(:create)
       object.stub(:reload)
-      Padlock.lock(object, user)
+      Padlock.lock(user, object)
     end
 
     it "creates the Padlock::Instance" do
       object.stub(:unlock!)
       padlocks.should_receive(:create).with(lockable: object)
       object.stub(:reload)
-      Padlock.lock(object, user)
+      Padlock.lock(user, object)
     end
 
     it "reloads the object" do
       object.stub(:unlock!)
       padlocks.stub(:create)
       object.should_receive(:reload)
-      Padlock.lock(object, user)
+      Padlock.lock(user, object)
+    end
+
+    it "accepts a splat of objects" do
+      object.should_receive(:unlock!).exactly(2).times
+      padlocks.should_receive(:create).exactly(2).times
+      object.should_receive(:reload).exactly(2).times
+      Padlock.lock(user, object, object)
     end
   end
 

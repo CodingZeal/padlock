@@ -7,13 +7,13 @@ module Padlock
     end
 
     def padlock *objects
-      objects.each { |object| Padlock.lock(object, self) }
+      Padlock.lock(self, *objects)
     end
 
     def padlock! *objects
       objects.each do |object|
         if object.unlocked?
-          Padlock.lock(object, self)
+          Padlock.lock(self, object)
         else
           raise "Attempting to lock an object that is already locked"
         end
