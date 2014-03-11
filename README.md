@@ -25,7 +25,7 @@ Generate the padlocks table with the included Rails generator:
 
 ## Usage
 
-#### User Model:
+#### User:
 
 Padlock will associate every lock to a User object.  Therefore, you need
 to specify the User type model:
@@ -42,7 +42,7 @@ Optionally set the foreign key:
 
 Once activated a User object can have many lockable objects
 
-#### Locking Objects:
+#### Locking:
 
 All lockable objects are associated to a padlock user.
 
@@ -64,14 +64,13 @@ For integration with the Timeout gem, you can touch a lockable object and extend
 Padlocks can also be administered through the global Padlock object
 
     Padlock.lock(current_user, lockable [, lockable, ...]) # => locks it to the user
-    Padlock.locked? lockable                               # => true/false
+    Padlock.locked?(lockable)                              # => true/false
     Padlock.unlock!(lockable_1 [, lockable_2, ...])        # => unlocks a group of objects
-    Padlock.unlocked? lockable                             # => true/false
+    Padlock.unlocked?(lockable)                            # => true/false
 
 #### Lockable Objects:
 
-Padlock assumes that all objects inherited from `ActiveRecord::Base` can
-be locked by a user record.
+Padlock assumes that all objects inherited from `ActiveRecord::Base` can be locked by a user record.
 
     lockable.locked?   # => true/false
     lockable.unlocked? # => true/false
@@ -89,13 +88,10 @@ Lockables that have been locked for extended periods of time, may need to be res
 
 You can customize certain configuration options by added an initializer (config/padlock.rb) or pre-boot configuration file:
 
-    Padlock.config.timeout = 1.week # => sets a new unlock stale timeout.  Default is 24 hours.
-
-    Padlock.config.table_name = "..." # => define the database table name for the padlocks.  Default is "padlocks"
-
+    Padlock.config.timeout = 1.week         # => sets a new unlock stale timeout.  Default is 24 hours.
+    Padlock.config.table_name = "..."       # => define the database table name for the padlocks.  Default is "padlocks"
     Padlock.config.user_foreign_key = "..." # => defines the foreign key relating to the User object.  Default is "user_id".
-
-    Padlock.config.user_class_name = "..." # => defines the user model class.  Default is "User".
+    Padlock.config.user_class_name = "..."  # => defines the user model class.  Default is "User".
 
 ## Contributing
 
