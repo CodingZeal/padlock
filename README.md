@@ -42,23 +42,11 @@ Optionally set the foreign key:
 
 Once activated a User object can have many lockable objects
 
-#### Lockable Objects:
-
-Padlock assumes that all objects inherited from `ActiveRecord::Base` can
-be locked by a user record.
-
-    lockable.locked?   # => true/false
-    lockable.unlocked? # => true/false
-    lockable.locked_by # => associated padlock user record
-    lockable.lock_touched_at # => last time the padlock was updated
-    lockable.unlock!   # => unsets the padlock
-
 #### Locking Objects:
 
 All lockable objects are associated to a padlock user.
 
-    current_user.padlock(lockable) # => Lock the object for editing by the current_user. Override an existing lock
-
+    current_user.padlock(lockable)  # => Lock the object for editing by the current_user. Override an existing lock
     current_user.padlock!(lockable) # => Lock the object and raise an exception if lockable is already locked by another user
 
 You can also pass in multiple lockable objects to a single user.
@@ -76,12 +64,20 @@ For integration with the Timeout gem, you can touch a lockable object and extend
 Padlocks can also be administered through the global Padlock object
 
     Padlock.lock(current_user, lockable [, lockable, ...]) # => locks it to the user
+    Padlock.locked? lockable                               # => true/false
+    Padlock.unlock!(lockable_1 [, lockable_2, ...])        # => unlocks a group of objects
+    Padlock.unlocked? lockable                             # => true/false
 
-    Padlock.locked? lockable # => true/false
+#### Lockable Objects:
 
-    Padlock.unlock!(lockable_1 [, lockable_2, ...]) # => unlocks a group of objects
+Padlock assumes that all objects inherited from `ActiveRecord::Base` can
+be locked by a user record.
 
-    Padlock.unlocked? lockable # => true/false
+    lockable.locked?   # => true/false
+    lockable.unlocked? # => true/false
+    lockable.locked_by # => associated padlock user record
+    lockable.lock_touched_at # => last time the padlock was updated
+    lockable.unlock!   # => unsets the padlock
 
 #### Stale Padlocks
 
