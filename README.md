@@ -20,7 +20,7 @@ Or install it yourself as:
 
 Generate the padlocks table with the included Rails generator:
 
-    $ rails g padlock:install
+    $ rails generate padlock:install
     $ rake db:migrate
 
 ## Usage
@@ -47,15 +47,11 @@ Once activated a User object can have many lockable objects
 Padlock assumes that all objects inherited from `ActiveRecord::Base` can
 be locked by a user record.
 
-    lockable.locked? # => true/false
-
+    lockable.locked?   # => true/false
     lockable.unlocked? # => true/false
-
     lockable.locked_by # => associated padlock user record
-
     lockable.lock_touched_at # => last time the padlock was updated
-
-    lockable.unlock! # => unsets the padlock
+    lockable.unlock!   # => unsets the padlock
 
 #### Locking Objects:
 
@@ -67,15 +63,15 @@ All lockable objects are associated to a padlock user.
 
 You can also pass in multiple lockable objects to a single user.
 
-    current_user.padlock(lockable_1, lockable_2, lockable_3)
+    current_user.padlock(lockable_1 [, lockable_2, ...])
 
 Or check the status of a single object.
 
-    current_user.locked? lockable # => true/false
+    current_user.locked?(lockable) # => true/false
 
 For integration with the Timeout gem, you can touch a lockable object and extend the padlock's TTL.
 
-    currrent_user.touch(lockable_1 [, lockable ])
+    currrent_user.touch(lockable_1 [, lockable, ...])
 
 Padlocks can also be administered through the global Padlock object
 
