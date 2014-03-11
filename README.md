@@ -45,7 +45,7 @@ Once activated a User object can have many lockable objects
 #### Lockable Objects:
 
 Padlock assumes that all objects inherited from `ActiveRecord::Base` can
-be locked and associated to a User object.
+be locked by a user record.
 
     lockable.locked? # => true/false
 
@@ -61,11 +61,9 @@ be locked and associated to a User object.
 
 All lockable objects are associated to a padlock user.
 
-    current_user.padlock(lockable) # => Lock the object for editing by
-the current_user. Override an existing lock
+    current_user.padlock(lockable) # => Lock the object for editing by the current_user. Override an existing lock
 
-    current_user.padlock!(lockable) # => Lock the object and raise an
-exception if lockable is already locked by another user
+    current_user.padlock!(lockable) # => Lock the object and raise an exception if lockable is already locked by another user
 
 You can also pass in multiple lockable objects to a single user.
 
@@ -75,8 +73,7 @@ Or check the status of a single object.
 
     current_user.locked? lockable # => true/false
 
-For integration with the Timeout gem, you can touch a lockable object
-and extend the padlock's TTL.
+For integration with the Timeout gem, you can touch a lockable object and extend the padlock's TTL.
 
     currrent_user.touch(lockable_1 [, lockable ])
 
@@ -93,28 +90,21 @@ of objects
 
 #### Stale Padlocks
 
-Lockables that have been locked for extended periods of time, may need
-to be reset.  In this case you can detect stale locks and unset them.
+Lockables that have been locked for extended periods of time, may need to be reset.  In this case you can detect stale locks and unset them.
 
-    Padlock.unlock_stale # => unlocks all padlocks that have not been
-touched in the last 24 hours
+    Padlock.unlock_stale # => unlocks all padlocks that have not been touched in the last 24 hours
 
 #### Configuration and Initialization
 
-You can customize certain configuration options by added an initializer
-(config/padlock.rb) or pre-boot configuration file:
+You can customize certain configuration options by added an initializer (config/padlock.rb) or pre-boot configuration file:
 
-    Padlock.config.timeout = 1.week # => sets a new unlock stale
-timeout.  Default is 24 hours.
+    Padlock.config.timeout = 1.week # => sets a new unlock stale timeout.  Default is 24 hours.
 
-    Padlock.config.table_name = "..." # => define the database table
-name for the padlocks.  Default is "padlocks"
+    Padlock.config.table_name = "..." # => define the database table name for the padlocks.  Default is "padlocks"
 
-    Padlock.config.user_foreign_key = "..." # => defines the foreign key
-relating to the User object.  Default is "user_id".
+    Padlock.config.user_foreign_key = "..." # => defines the foreign key relating to the User object.  Default is "user_id".
 
-    Padlock.config.user_class_name = "..." # => defines the user model
-class.  Default is "User".
+    Padlock.config.user_class_name = "..." # => defines the user model class.  Default is "User".
 
 ## Contributing
 
