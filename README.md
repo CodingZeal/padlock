@@ -83,8 +83,7 @@ Padlocks can also be administered through the global Padlock object
 
     Padlock.locked? lockable # => true/false
 
-    Padlock.unlock!(lockable_1 [, lockable_2, ...]) # => unlocks a group
-of objects
+    Padlock.unlock!(lockable_1 [, lockable_2, ...]) # => unlocks a group of objects
 
     Padlock.unlocked? lockable # => true/false
 
