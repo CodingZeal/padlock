@@ -1,6 +1,6 @@
 # Padlock
 
-[![Build Status](https://travis-ci.org/acuppy/padlock.png?branch=master)](https://travis-ci.org/acuppy/padlock) [![Code Climate](https://codeclimate.com/github/acuppy/padlock.png)](https://codeclimate.com/github/acuppy/padlock)
+[![Build Status](https://travis-ci.org/CodingZeal/padlock.png?branch=master)](https://travis-ci.org/CodingZeal/padlock) [![Code Climate](https://codeclimate.com/github/CodingZeal/padlock.png)](https://codeclimate.com/github/CodingZeal/padlock)
 
 Lock a content item for editing.
 
