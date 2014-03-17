@@ -27,7 +27,7 @@ module Padlock
     end
 
     def unlock!
-      self.lock.destroy if self.locked?
+      self.padlock.destroy if self.locked?
     end
   end
 end
