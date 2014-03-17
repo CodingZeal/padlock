@@ -23,14 +23,5 @@ module Padlock
     def locked? object
       self.padlocks.include? object
     end
-
-    def touch *objects
-      objects.each do |object|
-        if object.locked_by? self
-          object.updated_at = Time.now
-          object.save
-        end
-      end
-    end
   end
 end

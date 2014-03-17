@@ -107,4 +107,35 @@ describe Padlock do
       expect(object).to be_unlocked
     end
   end
+
+  describe ".touch" do
+    let(:object) { LockableObject.create }
+    let(:locked?) { true }
+    let(:fake_padlock) { double(:fake_padlock) }
+
+    before do
+      object.stub(:locked?).and_return(locked?)
+      object.stub(:padlock).and_return(fake_padlock)
+    end
+
+    context "when locked" do
+      let(:locked?) { true }
+
+      it "sets a new value on the updated_at column and saves it" do
+        expect(object).to receive(:updated_at=)
+        expect(object).to receive(:save)
+        Padlock.touch(object)
+      end
+    end
+
+    context "when unlocked" do
+      let(:locked?) { false }
+
+      it "leaves the object uneffected" do
+        expect(object).to_not receive(:updated_at=)
+        expect(object).to_not receive(:save)
+        Padlock.touch(object)
+      end
+    end
+  end
 end

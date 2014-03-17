@@ -36,6 +36,15 @@ module Padlock
       stale_locks.destroy_all
     end
 
+    def touch *objects
+      objects.each do |object|
+        if object.locked?
+          object.updated_at = Time.now
+          object.save
+        end
+      end
+    end
+
     private
 
     def timeout
