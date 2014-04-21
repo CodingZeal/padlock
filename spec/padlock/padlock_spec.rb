@@ -2,13 +2,11 @@ require "spec_helper"
 
 describe Padlock do
   describe ".config" do
-    before do
-      Padlock.class_variable_set(:@@config, nil)
-    end
+    let(:config) { nil }
 
-    it "returns an OpenStruct" do
-      expect( Padlock.config ).to be_a_kind_of OpenStruct
-    end
+    before { Padlock.class_variable_set(:@@config, config) }
+
+    it { expect( Padlock.config ).to be_a_kind_of OpenStruct }
 
     it "returns a persistant object" do
       expect( Padlock.config.random ).to be_nil
@@ -22,9 +20,7 @@ describe Padlock do
     let(:user) { double(:user) }
     let(:padlocks) { double(:padlocks) }
 
-    before do
-      user.stub(:padlocks).and_return(padlocks)
-    end
+    before { user.stub(:padlocks).and_return(padlocks) }
 
     it "unlocks the object before attempting to lock it" do
       object.should_receive(:unlock!)
@@ -48,9 +44,9 @@ describe Padlock do
     end
 
     it "accepts a splat of objects" do
-      object.should_receive(:unlock!).exactly(2).times
-      padlocks.should_receive(:create).exactly(2).times
-      object.should_receive(:reload).exactly(2).times
+      expect(object).to receive(:unlock!).exactly(2).times
+      expect(padlocks).to receive(:create).exactly(2).times
+      expect(object).to receive(:reload).exactly(2).times
       Padlock.lock(user, object, object)
     end
   end
