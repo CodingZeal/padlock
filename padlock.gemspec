@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.version       = Padlock::VERSION
   spec.authors       = ["Coding Zeal", "Adam Cuppy"]
   spec.email         = ["adam@codingzeal.com"]
-  spec.summary       = %q{Concurent editing collision prevention}
+  spec.summary       = %q{Lock a record for editing to avoid concurrent editing collision prevention}
   spec.homepage      = "https://github.com/CodingZeal/padlock"
   spec.license       = "MIT"
 
