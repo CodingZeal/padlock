@@ -4,7 +4,7 @@ require "active_record"
 module Padlock
   class << self
     def config
-      @@config ||= OpenStruct.new(
+      @config ||= OpenStruct.new(
         table_name: "padlocks",
         user_foreign_key: "user_id",
         user_class_name: "User",
@@ -25,7 +25,7 @@ module Padlock
     end
 
     def unlock! *objects
-      objects.each { |object| object.unlock! }
+      objects.each(&:unlock!)
     end
 
     def unlocked? object
@@ -37,11 +37,8 @@ module Padlock
     end
 
     def touch *objects
-      objects.each do |object|
-        if object.locked?
-          object.updated_at = Time.now
-          object.save
-        end
+      objects.select(&:locked?).each do |object|
+        object.update_attribute(:updated_at, Time.now)
       end
     end
 
