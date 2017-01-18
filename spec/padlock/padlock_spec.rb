@@ -56,7 +56,7 @@ describe Padlock do
 
     it do
       object.should_receive(:locked?).and_return(true)
-      expect(Padlock.locked?(object)).to be_true
+      expect(Padlock.locked?(object)).to eq true
     end
   end
 
@@ -83,14 +83,14 @@ describe Padlock do
 
     it do
       object.should_receive(:unlocked?).and_return(true)
-      expect(Padlock.unlocked?(object)).to be_true
+      expect(Padlock.unlocked?(object)).to eq true
     end
   end
 
   describe ".unlock_stale" do
-    let(:object) { LockableObject.create!(created_at: Time.now - 1.week, updated_at: updated_at) }
+    let(:object) { LockableObject.create!(created_at: Time.zone.now - 1.week, updated_at: updated_at) }
     let(:locked?) { true }
-    let(:updated_at) { Time.now - 2.hours }
+    let(:updated_at) { Time.zone.now - 2.hours }
     let(:fake_relation) { double(:fake_relation) }
 
     before do
@@ -118,8 +118,7 @@ describe Padlock do
       let(:locked?) { true }
 
       it "sets a new value on the updated_at column and saves it" do
-        expect(object).to receive(:updated_at=)
-        expect(object).to receive(:save)
+        expect(object).to receive(:update_attribute).with(:updated_at, anything)
         Padlock.touch(object)
       end
     end
@@ -128,8 +127,7 @@ describe Padlock do
       let(:locked?) { false }
 
       it "leaves the object uneffected" do
-        expect(object).to_not receive(:updated_at=)
-        expect(object).to_not receive(:save)
+        expect(object).to_not receive(:update_attribute)
         Padlock.touch(object)
       end
     end

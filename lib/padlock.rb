@@ -38,14 +38,14 @@ module Padlock
 
     def touch *objects
       objects.select(&:locked?).each do |object|
-        object.update_attribute(:updated_at, Time.now)
+        object.update_attribute(:updated_at, Time.zone.now)
       end
     end
 
     private
 
     def timeout
-      Time.now - config.timeout
+      Time.zone.now - config.timeout
     end
 
     def stale_locks
