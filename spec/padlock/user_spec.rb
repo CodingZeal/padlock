@@ -44,12 +44,12 @@ describe User do
 
     context "when included" do
       let(:include?) { true }
-      it { expect(subject.locked?(object)).to be_true }
+      it { expect(subject.locked?(object)).to eq true }
     end
 
     context "when not included" do
       let(:include?) { false }
-      it { expect(subject.locked?(object)).to be_false }
+      it { expect(subject.locked?(object)).to eq false }
     end
   end
 end

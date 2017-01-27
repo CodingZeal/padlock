@@ -2,6 +2,7 @@ require 'rubygems'
 require 'active_record'
 require 'rspec'
 require 'rspec/autorun'
+require 'rspec/its'
 require 'pry'
 require "generator_spec"
 
@@ -14,6 +15,9 @@ require 'padlock'
 RSpec.configure do |c|
   c.before(:all) { setup_db }
   c.after(:all)  { teardown_db }
+  c.before(:suite) do
+    Time.zone = 'Pacific Time (US & Canada)'
+  end
 end
 
 ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
